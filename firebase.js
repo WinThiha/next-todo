@@ -1,6 +1,7 @@
 import {initializeApp} from 'firebase/app'
 import {getAuth} from 'firebase/auth'
 import {getFirestore} from 'firebase/firestore'
+import { getApp,getApps } from 'firebase/app'
 
 // TODO: Replace the following with your app's Firebase project configuration
 const firebaseConfig = {
@@ -13,9 +14,7 @@ const firebaseConfig = {
   appId: process.env.NEXT_PUBLIC_APPID
 }
 
-const app = ()=>{if (!firebase.apps.length) {
-    firebase.initializeApp(firebaseConfig);
-  }}
+const app = initializeApp(firebaseConfig,'test')
 
 export const auth = getAuth(app)
 export const db = getFirestore(app)

@@ -1,3 +1,4 @@
+import { useAuth } from "@/context/AuthContext";
 import React,{useState} from "react";
 
 export default function Login() {
@@ -6,11 +7,24 @@ export default function Login() {
     const [error, setError] = useState(null);
     const [isLoggingIn, setIsLoggingIn] =useState(true);
 
-    function submitHandler(){
+    const {login, signup, currentUser} = useAuth();
+    console.log(currentUser)
+
+   async function submitHandler(){
         if( !email || !password){
             setError('Please enter email and password!');
             return
         }
+        if(isLoggingIn){
+            try {
+                
+            return await login(email, password)
+            } catch (error) {
+                setError('Please enter correct email and password!')
+            }
+            return
+        }
+        return await signup(email, password)
     }
     return <div className='text-xs sm:text-sm flex-1 flex flex-col justify-center items-center gap-2 sm:gap-4'>
         <h1 className='font-extrabold text-2xl sm:text-4xl select-none uppercase'>{isLoggingIn ? 'Login' : 'Register'}</h1>
