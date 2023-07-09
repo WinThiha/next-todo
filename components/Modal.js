@@ -1,9 +1,11 @@
+import { useAuth } from "@/context/AuthContext";
 import React, { useState, useEffect } from "react";
 import ReactDom from "react-dom" 
 
 export default function Modal(props) {
   const { setOpenModal } = props
   const [_document, set_document] = useState(null)
+  const {logout} = useAuth()
   useEffect(() => {
     set_document(document);
   }, [])
@@ -17,7 +19,10 @@ export default function Modal(props) {
             <i onClick={()=>setOpenModal(false)} className="fa-solid fa-xmark duration-300 hover:rotate-90 text-lg sm:text-3xl cursor-pointer"></i>
           </div>
           <div className="flex flex-col p-4 gap-3">
-            <h2 className="select-none hover:pl-2 duration-300 cursor-pointer max-w-fit">Logout</h2>
+            <h2 onClick={()=>{
+              logout()
+              setOpenModal(false)
+            }} className="select-none hover:pl-2 duration-300 cursor-pointer max-w-fit">Logout</h2>
           </div>
         </div> 
     ,
